@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { MatTable } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormField } from '@angular/material/form-field';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
     MatTable,
     MatFormField,
     MatInputModule,
-    HttpClient
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

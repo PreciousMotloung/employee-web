@@ -9,44 +9,70 @@
   <br />
   <mat-form-field>
     <label>
-      <input matInput placeholder="Search Employee here" type="text" />
+      <input
+        (input)="searchEmployee(filter.value)"
+        matInput
+        placeholder="Search Employee here"
+        type="text"
+        #filter
+      />
     </label>
   </mat-form-field>
-  <button mat-flat-button style="width: 100px; float: right; margin: 15px">
+  <button
+    (click)="openDialog(employee)"
+    mat-flat-button
+    style="
+      width: 100px;
+      float: right;
+      margin: 15px;
+      background-color: rgb(54, 132, 204);
+    "
+  >
     Add +
   </button>
   <br />
   <div class="example-container mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Id Column -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
         <td mat-cell *matCellDef="let employee">{{ employee.id }}</td>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let employee">{{ employee.name }}</td>
       </ng-container>
 
-      <!-- Email Column -->
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
         <td mat-cell *matCellDef="let employee">{{ employee.email }}</td>
       </ng-container>
 
       <!-- Salary Column -->
       <ng-container matColumnDef="salary">
-        <th mat-header-cell *matHeaderCellDef>Salary</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Salary</th>
         <td mat-cell *matCellDef="let employee">{{ employee.salary }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>Edit</th>
+        <td mat-cell *matCellDef="let employee"><button  (click)="openDialog(employee)" style="width: auto;height: 27px; background-color: cornflowerblue;" mat-flat-button>Edit</button></td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let employee"><button  (click)="deleteEmployee(employee.id)" style="width: auto;height: 27px;" color="warn" mat-flat-button>Delete</button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let employee; columns: displayedColumns"></tr>
     </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[2, 3, 5, 10]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
   </div>
 </div>
